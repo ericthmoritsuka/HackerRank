@@ -1,0 +1,30 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'staircase' function below.
+#
+# The function accepts INTEGER n as parameter.
+#
+
+def staircase(n):
+    contador1 = 0
+    contador2 = n-1
+    contador3 = 1
+    while contador1 < n:
+        print(' '*(contador2) + '#'*contador3)
+        contador2 -= 1
+        contador3 += 1
+        contador1 += 1
+
+        
+
+if __name__ == '__main__':
+    n = int(input().strip())
+
+    staircase(n)
