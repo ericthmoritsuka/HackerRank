@@ -1,0 +1,71 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'getTotalX' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY a
+#  2. INTEGER_ARRAY b
+#
+
+def getTotalX(a, b):
+    
+    temp = 0
+    contador = 1
+    numero_maior = max(b)
+    numero_menor = min(b)
+    set1, set2 = [], []
+    final = []
+    
+    while contador <= numero_menor:
+        for elem in a:
+            if contador % elem == 0:
+                temp = contador
+            else:
+                temp = 0
+                break
+        if temp != 0:
+            set1.append(temp)
+        contador += 1
+        temp = 0
+            
+    temp = 0
+    for elems in set1:
+        for elemb in b:
+            if elemb % elems == 0:
+                temp = elems
+            else:
+                temp = 0
+                break
+        if temp!= 0:
+            set2.append(temp)
+
+    set1, set2 = set(set1), set(set2)
+    final = set1.intersection(set2)
+    return(len(final))
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    m = int(first_multiple_input[1])
+
+    arr = list(map(int, input().rstrip().split()))
+
+    brr = list(map(int, input().rstrip().split()))
+
+    total = getTotalX(arr, brr)
+
+    fptr.write(str(total) + '\n')
+
+    fptr.close()
