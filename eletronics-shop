@@ -1,0 +1,56 @@
+#!/bin/python3
+
+import os
+import sys
+
+#
+# Complete the getMoneySpent function below.
+#
+def getMoneySpent(keyboards, drives, b):
+    listaPrecos = []
+    preco = 0
+    for keyboard in keyboards:
+        for drive in drives:
+            listaPrecos.append(keyboard + drive)
+
+    listaPrecos.sort()
+    if len(listaPrecos) == 1:
+        if listaPrecos[0] <= b:
+            preco = listaPrecos[0]
+        else:
+            preco = -1
+    elif b in listaPrecos:
+            preco = b        
+    else:
+        for elem in listaPrecos[::-1]:
+            if elem <= b:
+                preco = elem
+                break
+            else:
+                preco = -1
+    return preco
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    bnm = input().split()
+
+    b = int(bnm[0])
+
+    n = int(bnm[1])
+
+    m = int(bnm[2])
+
+    keyboards = list(map(int, input().rstrip().split()))
+
+    drives = list(map(int, input().rstrip().split()))
+
+    #
+    # The maximum amount of money she can spend on a keyboard and USB drive, or -1 if she can't purchase both items
+    #
+
+    moneySpent = getMoneySpent(keyboards, drives, b)
+
+    fptr.write(str(moneySpent) + '\n')
+
+    fptr.close()
