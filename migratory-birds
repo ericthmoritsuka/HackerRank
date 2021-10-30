@@ -1,0 +1,53 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'migratoryBirds' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER_ARRAY arr as parameter.
+#
+
+def migratoryBirds(arr):
+    dic = {}
+    for elem in arr:
+        if elem not in dic:
+            dic[elem] = 1
+        else:
+            dic[elem] += 1
+    lista = sorted(dic.items() , reverse=True, key=lambda x: x[1])
+    
+    end = len(lista)
+    while end > 1:
+        change = False
+        counter = 0
+        while counter < (end-1):
+            if lista[counter][1] == lista[counter+1][1] and lista[counter][0] > lista[counter+1][0]:
+                change = True
+                temporary = lista[counter]
+                lista[counter] = lista[counter+1]
+                lista[counter+1] = temporary
+            counter += 1
+        if not change:
+            break
+        end -= 1
+
+    return(lista[0][0])
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    arr_count = int(input().strip())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = migratoryBirds(arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
