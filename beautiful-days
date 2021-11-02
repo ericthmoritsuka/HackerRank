@@ -1,0 +1,48 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'beautifulDays' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER i
+#  2. INTEGER j
+#  3. INTEGER k
+#
+
+def beautifulDays(i, j, k):
+    beautifulDays = []
+    day = 0
+    
+    #the problem wants us to find the numbers (x - inverse(x)) that are evenly divisible by k.
+    #First, I transform the number in a string so I can invert it, then I change it again to an int and I get the absolute value from the subtraction x - invert(x)
+    #Then, I check if this number is evenly divided by k, if it is, I put it in a list and return the len(list) in the end.
+    for x in range(i, j+1):
+        day = abs(x-int(str(x)[::-1]))
+        if day%k == 0:
+            beautifulDays.append(day)
+    
+    return len(beautifulDays)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    i = int(first_multiple_input[0])
+
+    j = int(first_multiple_input[1])
+
+    k = int(first_multiple_input[2])
+
+    result = beautifulDays(i, j, k)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
