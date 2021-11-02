@@ -1,0 +1,48 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'utopianTree' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER n as parameter.
+#
+
+def utopianTree(n):
+    #only the number of cycles is give, so I added the base height for all cases
+    contador = 1
+    height = 1
+    
+    #if n is 0, I'll return the base height. Otherwise, I'll have to keep adding or doubling until the end of the cycles
+    #I use a counter to determine wether the cycle is even or odds. If it is going to an even number, I add 1 to the height (from 1 to 2, for example)
+    #if it is going to an odd number, I double it (from 2 to 3, for example)
+    if n == 0:
+        return 1
+    else:
+        while contador <= n:
+            if contador%2 != 0:
+                height *= 2
+            else:
+                height += 1
+            contador += 1
+    
+    return height
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    t = int(input().strip())
+
+    for t_itr in range(t):
+        n = int(input().strip())
+
+        result = utopianTree(n)
+
+        fptr.write(str(result) + '\n')
+
+    fptr.close()
