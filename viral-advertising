@@ -1,0 +1,41 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'viralAdvertising' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER n as parameter.
+#
+
+#First I define the first day, then I write the recursive formula
+def viralAdvertising(n):
+    day = 1
+    friends = 5
+    liked = 2
+    total = liked
+
+    while day < n:
+        friends = liked * 3
+        liked = friends//2
+        total += liked
+        day += 1
+        
+    return total
+    
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    result = viralAdvertising(n)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
