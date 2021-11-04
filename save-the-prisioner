@@ -1,0 +1,64 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'saveThePrisoner' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER n
+#  2. INTEGER m
+#  3. INTEGER s
+#
+
+def saveThePrisoner(n, m, s):
+    
+    #there are two cases here. In one, the amount of candies (m) is bigger than the amount of prisioners (p).
+    #So we will give one to each (regardless of where we start) from where we start until the end of the circle
+    #then, we will have to check how many rounds we are going to have with the remaining candy.
+    #That is why we do rest mod n. To see, after x rounds, where are we going to stop.
+    if m > n:
+        rest = abs((n-(s-1))-m)
+        #if the mod is 0, it means that we stopped in n itself (the last person)
+        if rest%n == 0:
+            return n
+        #otherwise, we say where we stopped with the candy
+        else:
+            return rest%n
+    
+    #the second case refers to when there are not enough candies. In this case, 2 things may happen.
+    #We may have the amount of candies distributed between the prisioners regardless of where we start
+    #because where we start + the amount of candies is not as large as the number of prisioners.
+    #s+m-1 represents where it is going to stop
+    elif m <= n and s+m-1 <= n:
+         return ((m-1)+(s-1)) + 1
+    #or we may surpass the amount of prisioners, which will force us to discover where it is going to stop
+    #in the second round (remember, there are not enough to go around the prisioners).
+    elif m <= n and s+m-1 > n:
+        return s+m-1-n   
+    
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    t = int(input().strip())
+
+    for t_itr in range(t):
+        first_multiple_input = input().rstrip().split()
+
+        n = int(first_multiple_input[0])
+
+        m = int(first_multiple_input[1])
+
+        s = int(first_multiple_input[2])
+
+        result = saveThePrisoner(n, m, s)
+
+        fptr.write(str(result) + '\n')
+
+    fptr.close()
